@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Southern Africa El Niño Observatory</title>
+<meta name="description" content="Southern Africa El Niño Observatory — real-time monitoring of rainfall, temperature, drought, water resources, agriculture, ecosystems and groundwater recharge for water and food security decisions.">
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.9.0/dist/maplibre-gl.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
+<script src="https://unpkg.com/maplibre-gl@5.9.0/dist/maplibre-gl.js"></script>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="brand">Southern Africa<br><span>El Niño Observatory</span></div>
+  <div class="sub">Climate, water, agriculture, ecosystem and groundwater intelligence for decision support.</div>
+  <nav>
+    <button class="active" onclick="showSection('overview',this)">◉ Overview</button>
+    <button onclick="showSection('climate',this)">◌ Climate Signals</button>
+    <button onclick="showSection('drought',this)">◌ Drought & Water Stress</button>
+    <button onclick="showSection('agri',this)">◌ Agriculture</button>
+    <button onclick="showSection('eco',this)">◌ Ecosystems</button>
+    <button onclick="showSection('gw',this)">◌ Groundwater Recharge</button>
+    <button onclick="showSection('country',this)">◌ Country Risk</button>
+    <button onclick="showSection('prep',this)">◌ Preparedness</button>
+  </nav>
+  <div class="sidebox"><span class="dot"></span><b>Monitoring active</b><br><small>Designed for integration with Google Earth Engine, CHIRPS, ERA5-Land, MODIS/VIIRS, ESA WorldCover and JULES outputs.</small></div>
+</aside>
+
+<main>
+<div class="top">
+ <div><div class="eyebrow">Regional climate intelligence</div><div class="title">Southern Africa El Niño Observatory</div>
+ <div class="subtitle">Real-time monitoring of rainfall, temperature, drought, water resources, agriculture, ecosystems and groundwater recharge to support water and food security decisions.</div></div>
+ <div class="updated">OBSERVATORY STATUS<br><b>07 October 2026</b><br><span class="good">● Data pipeline ready</span></div>
+</div>
+
+<div class="banner"><div><b>ENSO monitoring & impact assessment</b><br><span style="color:var(--muted)">Track climate signals and translate them into regional water, food and ecosystem risk.</span></div><div class="badge">LIVE MONITORING FRAMEWORK</div></div>
+
+<section id="overview">
+<div class="grid">
+ <div class="card kpi"><div class="label">Rainfall anomaly</div><div class="value">−18%</div><div class="delta bad">Below baseline</div></div>
+ <div class="card kpi"><div class="label">Temperature anomaly</div><div class="value">+1.2°C</div><div class="delta bad">Above baseline</div></div>
+ <div class="card kpi"><div class="label">Drought stress</div><div class="value">High</div><div class="delta bad">Regional concern</div></div>
+ <div class="card kpi"><div class="label">Water availability</div><div class="value">−14%</div><div class="delta bad">Reduced proxy</div></div>
+ <div class="card kpi"><div class="label">Crop exposure</div><div class="value">Moderate</div><div class="delta neutral">Monitor</div></div>
+ <div class="card kpi"><div class="label">Recharge vulnerability</div><div class="value">High</div><div class="delta bad">Priority areas</div></div>
+</div>
+
+<div class="section two">
+ <div class="card mapcard"><h2>Regional risk map</h2>
+  <div class="layers">
+   <button class="active" onclick="setLayer('stress',this)">Climate Stress</button><button onclick="setLayer('rain',this)">Rainfall</button><button onclick="setLayer('temp',this)">Temperature</button><button onclick="setLayer('soil',this)">Soil Moisture</button><button onclick="setLayer('veg',this)">Vegetation</button><button onclick="setLayer('gw',this)">Groundwater</button><button onclick="setLayer('crop',this)">Agriculture</button>
+  </div>
+  <div id="map"></div><div style="color:#71879b;font-size:10px;margin:7px 2px 0">Basemap uses OpenFreeMap vector tiles; the dashboard thematic layers are designed for live Google Earth Engine outputs.</div>
+ </div>
+ <div class="card"><h2>Decision risk indicators</h2>
+  <div class="risk"><div class="riskhead"><span>Rainfall deficit</span><b class="bad">78</b></div><div class="bar"><div class="fill f1"></div></div></div>
+  <div class="risk"><div class="riskhead"><span>Heat stress</span><b class="bad">64</b></div><div class="bar"><div class="fill f2"></div></div></div>
+  <div class="risk"><div class="riskhead"><span>Soil moisture stress</span><b class="neutral">52</b></div><div class="bar"><div class="fill f3"></div></div></div>
+  <div class="risk"><div class="riskhead"><span>Water availability</span><b>38</b></div><div class="bar"><div class="fill f4"></div></div></div>
+  <div class="risk"><div class="riskhead"><span>Recharge vulnerability</span><b class="good">29</b></div><div class="bar"><div class="fill f5"></div></div></div>
+  <p style="color:var(--muted);font-size:11px;line-height:1.5;margin-top:18px">Scores are demonstration values. Production values should be calculated from current Earth Engine and model outputs.</p>
+ </div>
+</div>
+
+<div class="section three">
+ <div class="card"><h2>Water balance</h2><div class="chartbox"><canvas id="waterChart"></canvas></div></div>
+ <div class="card"><h2>Climate signals</h2><div class="chartbox"><canvas id="climateChart"></canvas></div></div>
+ <div class="card"><h2>Priority response</h2><div class="action"><h3>Water & food security</h3><p>Use rainfall and temperature anomalies with soil moisture, vegetation and water-balance indicators to identify areas requiring early intervention.</p><ul><li>Prioritise drought monitoring</li><li>Review irrigation demand</li><li>Protect strategic groundwater</li><li>Target vulnerable ecosystems</li></ul></div></div>
+</div>
+</section>
+
+<section id="country" class="section">
+<div class="card"><h2>Country-level risk screening</h2>
+<table><thead><tr><th>Country</th><th>Rainfall</th><th>Temperature</th><th>Drought</th><th>Water</th><th>Recharge</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>South Africa</td><td>−15%</td><td>+1.1°C</td><td><span class="pill high">HIGH</span></td><td><span class="pill med">MED</span></td><td><span class="pill high">HIGH</span></td><td>High</td></tr>
+<tr><td>Zimbabwe</td><td>−24%</td><td>+1.5°C</td><td><span class="pill high">HIGH</span></td><td><span class="pill high">HIGH</span></td><td><span class="pill high">HIGH</span></td><td>Very high</td></tr>
+<tr><td>Zambia</td><td>−19%</td><td>+1.3°C</td><td><span class="pill high">HIGH</span></td><td><span class="pill med">MED</span></td><td><span class="pill med">MED</span></td><td>High</td></tr>
+<tr><td>Mozambique</td><td>−11%</td><td>+1.0°C</td><td><span class="pill med">MED</span></td><td><span class="pill med">MED</span></td><td><span class="pill med">MED</span></td><td>Moderate</td></tr>
+<tr><td>Botswana</td><td>−27%</td><td>+1.7°C</td><td><span class="pill high">HIGH</span></td><td><span class="pill high">HIGH</span></td><td><span class="pill med">MED</span></td><td>Very high</td></tr>
+<tr><td>Namibia</td><td>−22%</td><td>+1.8°C</td><td><span class="pill high">HIGH</span></td><td><span class="pill high">HIGH</span></td><td><span class="pill med">MED</span></td><td>Very high</td></tr>
+</tbody></table>
+</div>
+</section>
+
+<section id="prep" class="section three">
+<div class="card action"><h2>Preparedness</h2><h3>1. Climate</h3><p>Monitor rainfall deficits, heat anomalies and evolving ENSO signals at weekly to monthly timescales.</p></div>
+<div class="card action"><h2>Water</h2><h3>2. Water security</h3><p>Combine precipitation, evapotranspiration, runoff, soil moisture and storage indicators to anticipate supply stress.</p></div>
+<div class="card action"><h2>Groundwater</h2><h3>3. Recharge protection</h3><p>Flag areas where rainfall deficits, high ET, declining soil moisture and runoff changes may reduce recharge potential.</p></div>
+</section>
+
+<section class="section three">
+<div class="card action"><h2>Agriculture</h2><p>Overlay cropland with rainfall, soil moisture and vegetation anomalies to identify production-risk hotspots and guide early action.</p></div>
+<div class="card action"><h2>Ecosystems</h2><p>Use NDVI/vegetation condition, water availability and land-cover information to detect ecosystem stress and restoration priorities.</p></div>
+<div class="card action"><h2>Groundwater recharge</h2><p>For research-grade assessment, integrate JULES soil moisture and subsurface runoff with observed climate indicators rather than treating a simple proxy as measured recharge.</p></div>
+</section>
+
+<div class="footer">Southern Africa El Niño Observatory · Decision-support prototype · Basemap: OpenFreeMap / OpenMapTiles / OpenStreetMap. Production deployment should connect the interface to authenticated Earth Engine/API services and replace demonstration values with live calculations.</div>
+</main>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
